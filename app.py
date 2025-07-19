@@ -3,12 +3,24 @@ from flask import Flask, url_for
 from common.libs.UrlManager import UrlManager
 from envirment import route_env
 from flask_sqlalchemy import SQLAlchemy
+import yaml
+
+# 读取配置文件
+with open("config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+    # 提取数据库配置
+db_config = config.get('database')
+
+# 访问数据库配置信息
+username = db_config.get('username')
+password = db_config.get('password')
 
 app = Flask(__name__)
 app.register_blueprint(route_env, url_prefix='/bl')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456Lyf@127.0.0.1:3306/autotest'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{username}:{password}@127.0.0.1:3306/autotest'
 db = SQLAlchemy(app)
+
 
 @app.route('/')
 def hello_world():
