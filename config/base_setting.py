@@ -1,7 +1,7 @@
 import yaml
 
 # 读取配置文件
-with open("config.yaml", "r") as file:
+with open("/Users/liyifan/PycharmProjects/flaskProject/config/config.yaml", "r") as file:
     config = yaml.safe_load(file)
     # 提取数据库配置
 db_config = config.get('database')
@@ -12,3 +12,7 @@ password = db_config.get('password')
 
 SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{username}:{password}@127.0.0.1:3306/autotest'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+SERVER_PORT = 49999
+DEBUG = True
+SQLALCHEMY_ECHO = True
+SQLALCHEMY_ENCODING = 'utf-8'
